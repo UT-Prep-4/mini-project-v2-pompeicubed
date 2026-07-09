@@ -1,61 +1,75 @@
-#Name:
-#Mini-Project - Build Your Own Game!
 '''
-This is YOUR game. You are the designer. There are only two requirements:
-
-  1. Your game must use USER INPUT — typed answers, key strokes, mouse clicks, etc.
-  2. Your game must keep track of and DISPLAY A SCORE.
-
-You have everything you need from Modules 1-6: variables, input(), if/elif/else,
-while loops, for loops, lists, random, and turtle graphics.
-
-======================= NEED AN IDEA? PICK ONE OF THESE =======================
-
-  TERMINAL GAMES (use input(), great with while loops + random):
-    - Number guessing: score points for guessing in fewer tries, play 5 rounds
-    - Math quiz: random questions, +1 per right answer, show the final score
-    - Rock, paper, scissors: first to 3 wins, show the running score
-    - Trivia: store questions and answers in lists, loop through them
-
-  TURTLE GAMES (use the mouse or keyboard, see the reminder below):
-    - Click the turtle: it jumps to a random spot every time you click it
-    - Turtle race: press a key to make your turtle dash to the finish line
-    - Falling catch: move a paddle with the arrow keys to catch a falling dot
-
-  ...or invent something completely new. Weird ideas are welcome.
-
-============================ HELPFUL SNIPPETS ================================
-
-  Typed input:
-      guess = int(input("Your guess: "))
-
-  Turtle keyboard input:
-      screen = turtle.Screen()
-      screen.onkey(move_left, "Left")     # calls move_left() on the left arrow
-      screen.listen()
-
-  Turtle mouse input:
-      screen.onclick(jump)                # calls jump(x, y) on every click
-      my_turtle.onclick(caught)           # only when the turtle itself is clicked
-
-  Keeping and showing a score:
-      score = 0
-      score = score + 1                   # when the player earns a point
-      print("Score:", score)              # terminal
-      pen.write("Score: " + str(score))   # turtle (use a separate pen turtle)
-
-  REMINDER for turtle games — to see your game in Codespaces: run it, open the
-  PORTS tab, click port 6080 ("Turtle Desktop"), Connect, password: vscode
-
-========================== LEVEL-UP IDEAS (optional) ==========================
-
-  - Add lives: the game ends after 3 misses
-  - Add difficulty: harder questions or a faster game as the score goes up
-  - Add a high score: remember the best score across rounds with a variable
-  - Add sound-off flair: ASCII art title screens, victory messages, emoji
-
-==============================================================================
-Build your game below. Delete this line and start coding!
+Please don't be angry.
 '''
 
-print("My game is not built yet!")
+# PyGame template.
+ 
+# Import standard modules.
+import sys
+ 
+# Import non-standard modules.
+import pygame
+from pygame.locals import *
+ 
+def update(dt):
+  """
+  Update game. Called once per frame.
+  dt is the amount of time passed since last frame.
+  If you want to have constant apparent movement no matter your framerate,
+  what you can do is something like
+  
+  x += v * dt
+  
+  and this will scale your velocity based on time. Extend as necessary."""
+  
+  # Go through events that are passed to the script by the window.
+  for event in pygame.event.get():
+    # We need to handle these events. Initially the only one you'll want to care
+    # about is the QUIT event, because if you don't handle it, your game will crash
+    # whenever someone tries to exit.
+    if event.type == QUIT:
+      pygame.quit() # Opposite of pygame.init
+      sys.exit() # Not including this line crashes the script on Windows. Possibly
+      # on other operating systems too, but I don't know for sure.
+    # Handle other events as you wish.
+ 
+def draw(screen):
+  """
+  Draw things to the window. Called once per frame.
+  """
+  screen.fill((0, 0, 0)) # Fill the screen with black.
+  
+  # Redraw screen here.
+  
+  # Flip the display so that the things we drew actually show up.
+  pygame.display.flip()
+ 
+def runPyGame():
+  # Initialise PyGame.
+  pygame.init()
+  
+  # Set up the clock. This will tick every frame and thus maintain a relatively constant framerate. Hopefully.
+  fps = 60.0
+  fpsClock = pygame.time.Clock()
+  
+  # Set up the window.
+  width, height = 640, 480
+  screen = pygame.display.set_mode((width, height))
+  
+  # screen is the surface representing the window.
+  # PyGame surfaces can be thought of as screen sections that you can draw onto.
+  # You can also draw surfaces onto other surfaces, rotate surfaces, and transform surfaces.
+  
+  # Main game loop.
+  dt = 1/fps # dt is the time since last frame.
+  while True: # Loop forever!
+    update(dt) # You can update/draw here, I've just moved the code for neatness.
+    draw(screen)
+    
+    dt = fpsClock.tick(fps)
+
+
+
+
+
+
